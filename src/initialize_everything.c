@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/20 21:23:34 by gchernys         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:42:25 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	error_handle(enum e_error ret)
 		printf("Error: Failed to initialize Mutexs\n");
 	else if (ret == ERR_NUM_ARG)
 		printf("Error: Invalid size of Arguments\n");
-	else
-		return ;
 }
 
 int	initialize_mutex(t_rules *rules)

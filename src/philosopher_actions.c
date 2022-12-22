@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:05:22 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/20 21:25:37 by gchernys         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:39:31 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ int	philosopher_eats(t_philos *philo, t_rules *rules)
 
 	status = 1;
 	if (philo->right_fork == philo->left_fork)
-		return (status);
+		return (ft_usleep(rules->time_to_eat, philo));
 	pthread_mutex_lock(philo->right_fork->mutex);
 	pthread_mutex_lock(philo->left_fork->mutex);
 	if (philo->left_fork->fingerprint != philo->id \
 	&& philo->right_fork->fingerprint != philo->id && check_death(rules) != 1)
 	{
+		pthread_mutex_lock(&rules->fingerprint_fork);
 		philo->left_fork->fingerprint = philo->id;
 		philo->right_fork->fingerprint = philo->id;
+		pthread_mutex_unlock(&rules->fingerprint_fork);
 		print_message(philo, rules, "has taken a fork");
 		print_message(philo, rules, "has taken a fork");
 		print_message(philo, rules, "is eating");

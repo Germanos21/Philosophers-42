@@ -6,7 +6,7 @@
 #    By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:51:36 by gchernys          #+#    #+#              #
-#    Updated: 2022/12/19 22:19:35 by gchernys         ###   ########.fr        #
+#    Updated: 2022/12/21 18:45:51 by gchernys         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ AR = ar rcs
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread -fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread #-fsanitize=address 
 
 LIBFT = cd libft && make
 
@@ -24,7 +24,8 @@ FILES =	./main.c						\
 		./src/philosopher_atoi.c		\
 		./src/initialize_everything.c	\
 		./src/philosopher_actions.c		\
-		./src/philosopher_utils.c		
+		./src/philosopher_utils.c		\
+		./src/philosopher_launcher.c
 		
 FILES_O = $(FILES:.c=.o)
 

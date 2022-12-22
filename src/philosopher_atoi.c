@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:57:00 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/14 20:24:30 by gchernys         ###   ########.fr       */
+/*   Updated: 2022/12/20 22:04:28 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int	ft_isspace(int c)
 
 static int	error_atoi(void)
 {
-	write(2, "Error: Incorrect Arguments\n", 27);
 	return (-10);
 }
 
