@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 16:26:53 by gchernys         ###   ########.fr       */
+/*   Updated: 2022/12/22 17:32:13 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,5 @@ void			philosopher_death(t_philos *philo, t_rules	*rules, int i);
 int				ft_usleep(int time, t_philos *philo);
 int				philosopher_launcher(t_philos *philo, t_rules *rules);
 int				check_death(t_rules *rules);
-void			philosopher_exit(t_philos *philo, t_rules *rules);
 
 #endif

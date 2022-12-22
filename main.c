@@ -6,14 +6,17 @@
 /*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 16:38:13 by gchernys         ###   ########.fr       */
+/*   Updated: 2022/12/22 17:36:03 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_everything(t_rules *rules, t_philos *philo, int i)
+void	free_everything(t_rules *rules, t_philos *philo)
 {
+	int i;
+
+	i = 0;
 	while (i < rules->philo_num)
 	{
 		pthread_mutex_destroy(((rules->forks)[i]).mutex);
@@ -46,7 +49,5 @@ int	main(int argc, char **argv)
 		exit(0);
 	}
 	philosopher_launcher(philosophers, rules);
-	// philosopher_exit(philosophers, rules);
-	// free_everything(rules, philosophers, 0);
 	return (0);
 }

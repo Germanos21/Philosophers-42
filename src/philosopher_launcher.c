@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 17:02:37 by gchernys         ###   ########.fr       */
+/*   Updated: 2022/12/22 17:42:48 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	philosopher_launcher(t_philos *philo, t_rules *rules)
 		i++;
 	}
 	i = 0;
-	while (i++ < (rules->philo_num))
+	while (i < (rules->philo_num))
 	{
-		printf("thread joined\n\n");
-		pthread_join(philo[i - 1].thread, NULL);
+		pthread_join(philo[i].thread, NULL);
+		i++;
 	}
 	return (0);
 }
