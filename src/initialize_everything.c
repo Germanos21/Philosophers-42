@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_everything.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 17:19:19 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/19 09:51:59 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,32 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 		return (ERR_MALLOC);
 	rules->start_time = gettime();
 	return (0);
+}
+
+void	check_params(char **argv)
+{
+	int i;
+	int j;
+	int error;
+
+	error = 0;
+	j = 1;
+	while (argv[j])
+	{
+		i = 0;
+		while (argv[j][i])
+		{
+			if (argv[j][i] < '0' || argv[j][i] > '9')
+				error = 1;
+			if (argv[j][i] == '-')
+				error = 1;
+			i++;
+		}
+		j++;
+	}
+	if (error == 1)
+	{
+		printf("Error\n");
+		exit (1);
+	}
 }

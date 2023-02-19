@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 17:36:03 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/19 09:48:39 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv)
 	t_philos		*philosophers;
 	int				return_value;
 
+	check_params(argv);
 	rules = malloc(sizeof(t_rules) * 1);
 	philosophers = NULL;
 	return_value = init_all(&philosophers, rules, argv, argc);

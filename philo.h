@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 17:32:13 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/19 09:48:30 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void			philosopher_death(t_philos *philo, t_rules	*rules, int i);
 int				ft_usleep(int time, t_philos *philo);
 int				philosopher_launcher(t_philos *philo, t_rules *rules);
 int				check_death(t_rules *rules);
+void			check_params(char **argv);
 
 #endif
