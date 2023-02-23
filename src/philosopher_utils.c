@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:06:26 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 17:40:09 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:21:10 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_message(t_philos *philo, t_rules *rules, char *message)
 	pthread_mutex_lock(&rules->printing);
 	if (check_death(rules) == 0)
 		printf("%lld %d %s\n", \
-		gettime() - rules->start_time, philo->id, message);
+		gettime() - rules->start_time, philo->id + 1, message);
 	pthread_mutex_unlock(&rules->printing);
 }
 
@@ -38,7 +38,7 @@ int	ft_usleep(int time, t_philos *philo)
 	start_time = gettime();
 	while (gettime() - start_time < time)
 	{
-		usleep(100);
+		// usleep(100);
 		philosopher_death(philo, philo->rules, philo->id);
 	}
 	return (0);

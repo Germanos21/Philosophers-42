@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/19 09:48:30 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:06:21 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_rules
 	long long int		num_to_eat;
 	long long int		start_time;
 	t_philos			*philosophers;
-	pthread_mutex_t		printing;
 	t_forks				*forks;
+	pthread_mutex_t		printing;
 	pthread_mutex_t		fingerprint_fork;
 	pthread_mutex_t		last_meal_mutex;
 	pthread_mutex_t		death_mutex;

@@ -3,31 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher_launcher.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/22 17:42:48 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:31:44 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
+int		set_death(t_rules *rules)
+{
+	int death;
+
+	pthread_mutex_lock(&rules->death_mutex);
+	death = rules->death;
+	pthread_mutex_unlock(&rules->death_mutex);
+	return (death);
+}
+
 void	*philo_thread(void *philosopher)
 {
 	t_philos	*philo;
-
+	int 		death;
 	philo = (t_philos *)philosopher;
-	while (1)
+
+	death = set_death(philo->rules);
+	while (death == 0)
 	{
 		if (philo->eat_count == philo->rules->num_to_eat)
 			break ;
 		philosopher_thinks(philo, philo->rules);
-		while (philosopher_eats(philo, philo->rules) != 0)
+		while (philosopher_eats(philo, philo->rules) != 0 && death == 0)
 		{
 			usleep(100);
 			philosopher_death(philo, philo->rules, philo->id);
+			death = set_death(philo->rules);
 		}
-		if (philo->eat_count == philo->rules->num_to_eat)
+		if (philo->eat_count == philo->rules->num_to_eat && death == 1)
 			break ;
 		if (philosopher_sleeps(philo, philo->rules) != 0)
 			break ;

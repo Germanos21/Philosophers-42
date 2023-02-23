@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/19 09:51:59 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:10:06 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	initialize_mutex(t_rules *rules)
 		return (ERR_MUTEX);
 	if (pthread_mutex_init(&rules->death_mutex, NULL) != 0)
 		return (ERR_MUTEX);
+	if (pthread_mutex_init(&rules->fingerprint_fork, NULL) != 0)
+		return (ERR_MUTEX);
 	return (0);
 }
 
@@ -57,16 +59,22 @@ int	initialize_philosopher(t_rules *rules, t_philos **philo)
 	i = 0;
 	while (i < rules->philo_num)
 	{
-		(*philo)[i].id = i + 1;
-		(*philo)[i].left_fork = &rules->forks[i];
+		(*philo)[i].id = i;
+		if (i % 2 == 0)
+		{
 		(*philo)[i].right_fork = &rules->forks[(i + 1) % rules->philo_num];
+		(*philo)[i].left_fork = &rules->forks[i];
+		}
+		else
+		{
+		(*philo)[i].left_fork = &rules->forks[(i + 1) % rules->philo_num];
+		(*philo)[i].right_fork = &rules->forks[i];
+		}
 		(*philo)[i].eat_count = 0;
-		(*philo)[i].last_meal = 0;
+		(*philo)[i].last_meal = gettime();
 		(*philo)[i].rules = rules;
 		i++;
 	}
-	(*philo)[i - 1].left_fork = &rules->forks[(i) % rules->philo_num];
-	(*philo)[i - 1].right_fork = &rules->forks[i - 1];
 	return (0);
 }
 

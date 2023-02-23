@@ -6,30 +6,29 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/19 09:48:39 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:37:43 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_everything(t_rules *rules, t_philos *philo)
+void	free_everything(t_philos *philo, t_rules *rules)
 {
 	int i;
 
 	i = 0;
 	while (i < rules->philo_num)
 	{
-		pthread_mutex_destroy(((rules->forks)[i]).mutex);
-		free((rules->forks)[i].mutex);
+		free(((rules->forks)[i]).mutex);
 		i++;
 	}
-	pthread_mutex_destroy(&(rules->last_meal_mutex));
-	pthread_mutex_destroy(&(rules->death_mutex));
-	pthread_mutex_destroy(&(rules->printing));
-	i = 0;
+	pthread_mutex_destroy(&rules->death_mutex);
+	pthread_mutex_destroy(&rules->printing);
+	pthread_mutex_destroy(&rules->last_meal_mutex);
+	pthread_mutex_destroy(&rules->fingerprint_fork);
 	free(rules->forks);
-	free(rules);
 	free(philo);
+	free(rules);
 }
 
 int	main(int argc, char **argv)
@@ -50,5 +49,6 @@ int	main(int argc, char **argv)
 		exit(0);
 	}
 	philosopher_launcher(philosophers, rules);
+	free_everything(philosophers, rules);
 	return (0);
 }
