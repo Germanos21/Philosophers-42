@@ -6,29 +6,19 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:31:44 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:57:50 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int		set_death(t_rules *rules)
-{
-	int death;
-
-	pthread_mutex_lock(&rules->death_mutex);
-	death = rules->death;
-	pthread_mutex_unlock(&rules->death_mutex);
-	return (death);
-}
-
 void	*philo_thread(void *philosopher)
 {
 	t_philos	*philo;
-	int 		death;
-	philo = (t_philos *)philosopher;
+	int			death;
 
-	death = set_death(philo->rules);
+	philo = (t_philos *)philosopher;
+	death = check_death(philo->rules);
 	while (death == 0)
 	{
 		if (philo->eat_count == philo->rules->num_to_eat)
@@ -38,7 +28,7 @@ void	*philo_thread(void *philosopher)
 		{
 			usleep(100);
 			philosopher_death(philo, philo->rules, philo->id);
-			death = set_death(philo->rules);
+			death = check_death(philo->rules);
 		}
 		if (philo->eat_count == philo->rules->num_to_eat && death == 1)
 			break ;

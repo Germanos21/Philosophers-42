@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:10:06 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:55:52 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 
 void	check_params(char **argv)
 {
-	int i;
-	int j;
-	int error;
+	int	i;
+	int	j;
+	int	error;
 
 	error = 0;
 	j = 1;
