@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/25 17:01:40 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:50:20 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	main(int argc, char **argv)
 	return_value = init_all(&philosophers, rules, argv, argc);
 	error_handle(return_value);
 	philosopher_launcher(philosophers, rules);
+	free_everything(philosophers, rules);
 	return (0);
 }

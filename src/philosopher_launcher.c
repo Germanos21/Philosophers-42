@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 16:01:14 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:57:55 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*philo_thread(void *philosopher)
 		while (philosopher_death(philo, philo->rules, philo->id) != 1 && \
 		philosopher_eats(philo, philo->rules) != 0)
 		{
-			usleep(100);
+			// usleep(100);
 			if (philosopher_eats(philo, philo->rules) == -1)
 				break ;
 		}

@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:05:22 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 16:10:51 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:10:07 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	philosopher_eats(t_philos *philo, t_rules *rules)
 
 	status = 1;
 	if (philo->right_fork == philo->left_fork)
-		return (status);
+		return (status);		
 	if (rules->death == 1)
 		return (-1);
 	pthread_mutex_lock(philo->right_fork->mutex);
