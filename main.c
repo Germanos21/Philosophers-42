@@ -6,15 +6,32 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:37:43 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:01:40 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	check_params_two(char **argv)
+{
+	long long int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (philosopher_atoi(argv[i]) > INT_MAX || \
+		philosopher_atoi(argv[i]) < INT_MIN)
+		{
+			printf("Error\n");
+			exit (1);
+		}
+		i++;
+	}
+}
+
 void	free_everything(t_philos *philo, t_rules *rules)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < rules->philo_num)
@@ -38,17 +55,11 @@ int	main(int argc, char **argv)
 	int				return_value;
 
 	check_params(argv);
+	check_params_two(argv);
 	rules = malloc(sizeof(t_rules) * 1);
 	philosophers = NULL;
 	return_value = init_all(&philosophers, rules, argv, argc);
 	error_handle(return_value);
-	if (return_value != 0)
-	{
-		free(rules);
-		free(philosophers);
-		exit(0);
-	}
 	philosopher_launcher(philosophers, rules);
-	free_everything(philosophers, rules);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:57:50 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:01:14 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 void	*philo_thread(void *philosopher)
 {
 	t_philos	*philo;
-	int			death;
 
 	philo = (t_philos *)philosopher;
-	death = check_death(philo->rules);
-	while (death == 0)
+	while (philosopher_death(philo, philo->rules, philo->id) == 0)
 	{
 		if (philo->eat_count == philo->rules->num_to_eat)
 			break ;
-		philosopher_thinks(philo, philo->rules);
-		while (philosopher_eats(philo, philo->rules) != 0 && death == 0)
+		if (philosopher_thinks(philo, philo->rules) == 1)
+			break ;
+		while (philosopher_death(philo, philo->rules, philo->id) != 1 && \
+		philosopher_eats(philo, philo->rules) != 0)
 		{
 			usleep(100);
-			philosopher_death(philo, philo->rules, philo->id);
-			death = check_death(philo->rules);
+			if (philosopher_eats(philo, philo->rules) == -1)
+				break ;
 		}
-		if (philo->eat_count == philo->rules->num_to_eat && death == 1)
+		if (philo->eat_count == philo->rules->num_to_eat)
 			break ;
 		if (philosopher_sleeps(philo, philo->rules) != 0)
 			break ;

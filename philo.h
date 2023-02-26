@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:59:42 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:10:40 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 enum e_error
 {
@@ -48,7 +49,7 @@ typedef struct s_rules
 {
 	int					death;
 	int					philo_num;
-	int					time_to_die;
+	long long int		time_to_die;
 	long long int		time_to_eat;
 	long long int		time_to_sleep;
 	long long int		num_to_eat;
@@ -61,7 +62,7 @@ typedef struct s_rules
 	pthread_mutex_t		death_mutex;
 }				t_rules;
 
-int				philosopher_atoi(char *str);
+long long int	philosopher_atoi(char *str);
 int				init_all(t_philos **philo, t_rules *rules, char **av, int argc);
 int				initialize_philosopher(t_rules *rules, t_philos **philo);
 void			error_handle(enum e_error ret);
@@ -70,12 +71,13 @@ long long int	gettime(void);
 void			print_message(t_philos *philo, t_rules *rules, char *message);
 int				philosopher_eats(t_philos *philo, t_rules *rules);
 int				philosopher_sleeps(t_philos *philo, t_rules *rules);
-void			philosopher_thinks(t_philos *philo, t_rules *rules);
-void			philosopher_death(t_philos *philo, t_rules	*rules, int i);
+int				philosopher_thinks(t_philos *philo, t_rules *rules);
+int				philosopher_death(t_philos *philo, t_rules	*rules, int i);
 int				ft_usleep(int time, t_philos *philo);
 int				philosopher_launcher(t_philos *philo, t_rules *rules);
 int				check_death(t_rules *rules);
 void			check_params(char **argv);
-void			print_eat_message(t_philos *philo, t_rules *rules);
+void			print_eating(t_philos *philo, t_rules *rules);
+void			free_everything(t_philos *philo, t_rules *rules);
 
 #endif

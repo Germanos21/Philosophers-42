@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher_atoi.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchernys <gchernys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:57:00 by gchernys          #+#    #+#             */
-/*   Updated: 2022/12/20 22:04:28 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:36:24 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	check_not_number(char *str)
 		error_atoi();
 }
 
-int	philosopher_atoi(char *str)
+long long int	philosopher_atoi(char *str)
 {
 	long long int	z;
 

@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:55:52 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:31:27 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 void	error_handle(enum e_error ret)
 {
-	if (ret == ERR_ARG)
-		printf("Error: Wrong number of arguments; use 4 or 5\n");
-	else if (ret == ERR_MALLOC)
-		printf("Error: Failed to Initialize Philosophers\n");
-	else if (ret == ERR_MUTEX)
-		printf("Error: Failed to initialize Mutexs\n");
-	else if (ret == ERR_NUM_ARG)
-		printf("Error: Invalid size of Arguments\n");
+	if (ret == ERR_ARG || ret == ERR_MALLOC || ret == ERR_MUTEX
+		|| ret == ERR_NUM_ARG)
+		exit(1);
 }
 
 int	initialize_mutex(t_rules *rules)
@@ -33,7 +28,7 @@ int	initialize_mutex(t_rules *rules)
 	while (i < rules->philo_num)
 	{
 		((rules->forks)[i]).mutex = malloc(sizeof(pthread_mutex_t));
-		rules->forks[i].fingerprint = 0;
+		rules->forks[i].fingerprint = -1;
 		if (pthread_mutex_init(((rules->forks)[i]).mutex, NULL) != 0)
 			return (ERR_MUTEX);
 		i++;
@@ -118,7 +113,7 @@ void	check_params(char **argv)
 		i = 0;
 		while (argv[j][i])
 		{
-			if (argv[j][i] < '0' || argv[j][i] > '9')
+			if ((argv[j][i] < '0' || argv[j][i] > '9'))
 				error = 1;
 			if (argv[j][i] == '-')
 				error = 1;

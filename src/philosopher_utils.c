@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:06:26 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/23 16:59:33 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:10:16 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,15 @@ int	ft_usleep(int time, t_philos *philo)
 	start_time = gettime();
 	while (gettime() - start_time < time)
 	{
+		if (check_death(philo->rules) == 1)
+			return (1);
 		philosopher_death(philo, philo->rules, philo->id);
+		usleep(100);
 	}
 	return (0);
 }
 
-void	print_eat_message(t_philos *philo, t_rules *rules)
+void	print_eating(t_philos *philo, t_rules *rules)
 {
 	print_message(philo, rules, "has taken a fork");
 	print_message(philo, rules, "has taken a fork");
