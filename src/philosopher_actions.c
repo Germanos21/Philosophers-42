@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:05:22 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 17:10:07 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 21:17:56 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,22 @@ int	philosopher_eats(t_philos *philo, t_rules *rules)
 
 	status = 1;
 	if (philo->right_fork == philo->left_fork)
-		return (status);		
-	if (rules->death == 1)
-		return (-1);
+		return (status);
 	pthread_mutex_lock(philo->right_fork->mutex);
 	pthread_mutex_lock(philo->left_fork->mutex);
-	if (philosopher_death(philo, rules, philo->id) == 1)
+	if (check_death(rules) == 1 || philo->eat_count == rules->num_to_eat || \
+	philosopher_death(philo, rules, philo->id) == 1)
+	{
+		pthread_mutex_unlock(philo->left_fork->mutex);
+		pthread_mutex_unlock(philo->right_fork->mutex);
 		return (-1);
+	}
 	if (philo->left_fork->fingerprint != philo->id \
 	&& philo->right_fork->fingerprint != philo->id)
 	{
 		philo->last_meal = gettime();
 		print_eating(philo, rules);
 		philo->eat_count++;
-		philo->left_fork->fingerprint = philo->id;
-		philo->right_fork->fingerprint = philo->id;
 		status = ft_usleep(rules->time_to_eat, philo);
 	}
 	pthread_mutex_unlock(philo->left_fork->mutex);
@@ -50,11 +51,7 @@ int	philosopher_sleeps(t_philos *philo, t_rules *rules)
 
 int	philosopher_thinks(t_philos *philo, t_rules *rules)
 {
-	if (philosopher_death(philo, rules, philo->id) == 1)
-		return (1);
 	print_message(philo, rules, "is thinking");
-	if (philosopher_death(philo, rules, philo->id) == 1)
-		return (1);
 	return (0);
 }
 

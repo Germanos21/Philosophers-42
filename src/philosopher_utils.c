@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:06:26 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 16:10:16 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/02/26 21:18:00 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,6 @@ void	print_eating(t_philos *philo, t_rules *rules)
 	print_message(philo, rules, "has taken a fork");
 	print_message(philo, rules, "has taken a fork");
 	print_message(philo, rules, "is eating");
+	philo->left_fork->fingerprint = philo->id;
+	philo->right_fork->fingerprint = philo->id;
 }
