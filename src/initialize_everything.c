@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/25 13:31:27 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:43:54 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ int	initialize_mutex(t_rules *rules)
 	}
 	if (pthread_mutex_init(&rules->printing, NULL) != 0)
 		return (ERR_MUTEX);
-	if (pthread_mutex_init(&rules->last_meal_mutex, NULL) != 0)
-		return (ERR_MUTEX);
 	if (pthread_mutex_init(&rules->death_mutex, NULL) != 0)
 		return (ERR_MUTEX);
-	if (pthread_mutex_init(&rules->fingerprint_fork, NULL) != 0)
+	if (pthread_mutex_init(&rules->last_meal_mutex, NULL) != 0)
 		return (ERR_MUTEX);
 	return (0);
 }
@@ -48,7 +46,7 @@ int	initialize_philosopher(t_rules *rules, t_philos **philo)
 {
 	int	i;
 
-	*philo = malloc(sizeof(t_philos) * (rules->philo_num));
+	*philo = malloc(sizeof(t_philos) * (rules->philo_num) + 1);
 	if (!*philo)
 		return (ERR_MALLOC);
 	i = 0;
@@ -96,6 +94,7 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 		return (ERR_MUTEX);
 	if (initialize_philosopher(rules, philo) == ERR_MALLOC)
 		return (ERR_MALLOC);
+	rules->philosophers = *philo;
 	rules->start_time = gettime();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 20:39:36 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:44:00 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	free_everything(t_philos *philo, t_rules *rules)
 	pthread_mutex_destroy(&rules->death_mutex);
 	pthread_mutex_destroy(&rules->printing);
 	pthread_mutex_destroy(&rules->last_meal_mutex);
-	pthread_mutex_destroy(&rules->fingerprint_fork);
 	free(rules->forks);
 	free(philo);
 	free(rules);
@@ -56,7 +55,7 @@ int	main(int argc, char **argv)
 
 	check_params(argv);
 	check_params_two(argv);
-	rules = malloc(sizeof(t_rules) * 1);
+	rules = malloc(sizeof(t_rules) + 1);
 	philosophers = NULL;
 	return_value = init_all(&philosophers, rules, argv, argc);
 	error_handle(return_value);

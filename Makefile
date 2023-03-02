@@ -6,7 +6,7 @@
 #    By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 16:51:36 by gchernys          #+#    #+#              #
-#    Updated: 2023/02/25 15:30:36 by gchernys         ###   ########.fr        #
+#    Updated: 2023/03/02 19:04:08 by gchernys         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ AR = ar rcs
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread #-fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=address 
 
 LIBFT = cd libft && make
 

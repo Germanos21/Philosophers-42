@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:06:26 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 21:18:00 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:42:17 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	ft_usleep(int time, t_philos *philo)
 	{
 		if (check_death(philo->rules) == 1)
 			return (1);
-		philosopher_death(philo, philo->rules, philo->id);
 		usleep(100);
 	}
 	return (0);
@@ -53,4 +52,14 @@ void	print_eating(t_philos *philo, t_rules *rules)
 	print_message(philo, rules, "is eating");
 	philo->left_fork->fingerprint = philo->id;
 	philo->right_fork->fingerprint = philo->id;
+}
+
+long long int	check_last_meal(t_rules *rules, t_philos *philo, int i)
+{
+	long long int	last_meal_time;
+
+	pthread_mutex_lock(&rules->last_meal_mutex);
+	last_meal_time = philo[i].last_meal;
+	pthread_mutex_unlock(&rules->last_meal_mutex);
+	return (last_meal_time);
 }

@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/02/26 21:16:48 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:41:46 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 void	*philo_thread(void *philosopher)
 {
 	t_philos	*philo;
+	int			is_dead;
 
 	philo = (t_philos *)philosopher;
-	while (philosopher_death(philo, philo->rules, philo->id) == 0)
+	is_dead = check_death(philo->rules);
+	while (!is_dead)
 	{
-		if (philo->eat_count == philo->rules->num_to_eat)
-			break ;
 		if (philosopher_thinks(philo, philo->rules) == 1)
 			break ;
-		while (philosopher_death(philo, philo->rules, philo->id) != 1 && \
-		philosopher_eats(philo, philo->rules) != 0)
+		if (philo->eat_count == philo->rules->num_to_eat)
+			break ;
+		is_dead = check_death(philo->rules);
+		while (!is_dead && philosopher_eats(philo, philo->rules) != 0)
 		{
-			usleep(100);
 			if (philosopher_eats(philo, philo->rules) == -1)
 				break ;
+			is_dead = check_death(philo->rules);
 		}
-		if (philo->eat_count == philo->rules->num_to_eat)
+		if (philo->eat_count == philo->rules->num_to_eat || is_dead)
 			break ;
 		if (philosopher_sleeps(philo, philo->rules) != 0)
 			break ;
@@ -40,7 +42,7 @@ void	*philo_thread(void *philosopher)
 
 int	philosopher_launcher(t_philos *philo, t_rules *rules)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < rules->philo_num)
@@ -48,12 +50,14 @@ int	philosopher_launcher(t_philos *philo, t_rules *rules)
 		pthread_create(&(philo[i].thread), NULL, philo_thread, &(philo[i]));
 		i++;
 	}
+	pthread_create(&(rules->check_death_thread) \
+	, NULL, philosopher_death, rules);
 	i = 0;
 	while (i < (rules->philo_num))
 	{
 		pthread_join(philo[i].thread, NULL);
-		usleep(50);
 		i++;
 	}
+	pthread_join(rules->check_death_thread, NULL);
 	return (0);
 }
