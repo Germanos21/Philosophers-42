@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/02 19:43:54 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:56:47 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	initialize_mutex(t_rules *rules)
 	if (pthread_mutex_init(&rules->death_mutex, NULL) != 0)
 		return (ERR_MUTEX);
 	if (pthread_mutex_init(&rules->last_meal_mutex, NULL) != 0)
+		return (ERR_MUTEX);
+	if (pthread_mutex_init(&rules->eat_count_mutex, NULL) != 0)
 		return (ERR_MUTEX);
 	return (0);
 }

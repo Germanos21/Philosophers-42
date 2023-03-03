@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:40:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/02 19:41:46 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:20:56 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,8 @@ void	*philo_thread(void *philosopher)
 
 	philo = (t_philos *)philosopher;
 	is_dead = check_death(philo->rules);
-	while (!is_dead)
+	while (!is_dead && philo->eat_count != philo->rules->num_to_eat)
 	{
-		if (philosopher_thinks(philo, philo->rules) == 1)
-			break ;
-		if (philo->eat_count == philo->rules->num_to_eat)
-			break ;
-		is_dead = check_death(philo->rules);
 		while (!is_dead && philosopher_eats(philo, philo->rules) != 0)
 		{
 			if (philosopher_eats(philo, philo->rules) == -1)
@@ -34,6 +29,10 @@ void	*philo_thread(void *philosopher)
 		}
 		if (philo->eat_count == philo->rules->num_to_eat || is_dead)
 			break ;
+		is_dead = check_death(philo->rules);
+		if (philosopher_thinks(philo, philo->rules) == 1)
+			break ;
+		is_dead = check_death(philo->rules);
 		if (philosopher_sleeps(philo, philo->rules) != 0)
 			break ;
 	}

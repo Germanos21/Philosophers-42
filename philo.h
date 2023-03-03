@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/02 19:43:57 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:59:05 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_rules
 	pthread_mutex_t		printing;
 	pthread_mutex_t		death_mutex;
 	pthread_mutex_t		last_meal_mutex;
+	pthread_mutex_t		eat_count_mutex;
 }				t_rules;
 
 long long int	philosopher_atoi(char *str);
@@ -76,6 +77,7 @@ void			*philosopher_death(void *rule);
 int				ft_usleep(int time, t_philos *philo);
 int				philosopher_launcher(t_philos *philo, t_rules *rules);
 int				check_death(t_rules *rules);
+int				is_full(t_rules *rules);
 void			check_params(char **argv);
 void			print_eating(t_philos *philo, t_rules *rules);
 void			free_everything(t_philos *philo, t_rules *rules);
