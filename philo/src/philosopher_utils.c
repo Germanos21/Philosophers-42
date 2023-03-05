@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:06:26 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/05 04:10:50 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 01:18:18 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int	ft_usleep(int time, t_philos *philo)
 	start_time = gettime();
 	while (gettime() - start_time < time)
 	{
-		if (check_death(philo->rules) == 1)
+		if (check_death(philo->rules) || is_full(philo->rules))
 			return (1);
+		usleep(100);
 	}
 	return (0);
 }
