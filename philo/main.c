@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/06 03:35:18 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 03:37:10 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	check_params_two(char **argv, t_rules *rules)
 	}
 	if (argv[5])
 	{
-
 		if (philosopher_atoi(argv[5]) <= 0)
 		{
 			free(rules);
