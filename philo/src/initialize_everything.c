@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/06 02:52:15 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 02:54:18 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	error_handle(enum e_error ret, t_rules *rules)
 {
 	if (ret == ERR_ARG || ret == ERR_MALLOC || ret == ERR_MUTEX
 		|| ret == ERR_NUM_ARG)
-		{
-			free(rules);
-			exit(1);
-		}
+	{
+		free(rules);
+		exit(1);
+	}
 }
 
 int	initialize_mutex(t_rules *rules)
