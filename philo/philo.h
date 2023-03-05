@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/05 02:50:49 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 02:53:05 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_rules
 long long int	philosopher_atoi(char *str);
 int				init_all(t_philos **philo, t_rules *rules, char **av, int argc);
 int				initialize_philosopher(t_rules *rules, t_philos **philo);
-void			error_handle(enum e_error ret);
+void			error_handle(enum e_error ret, t_rules *rules);
 int				initialize_mutex(t_rules *rules);
 long long int	gettime(void);
 void			print_message(t_philos *philo, t_rules *rules, char *message);
@@ -82,6 +82,7 @@ int				philosopher_launcher(t_philos *philo, t_rules *rules);
 int				check_death(t_rules *rules);
 int				is_full(t_rules *rules);
 void			check_params(char **argv);
+void			check_params_two(char **argv);
 void			print_eating(t_philos *philo, t_rules *rules);
 void			free_everything(t_philos *philo, t_rules *rules);
 long long int	check_last_meal(t_rules *rules, t_philos *philo, int i);

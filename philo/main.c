@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/05 23:32:22 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 02:52:53 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int argc, char **argv)
 	rules = malloc(sizeof(t_rules) + 1);
 	philosophers = NULL;
 	return_value = init_all(&philosophers, rules, argv, argc);
-	error_handle(return_value);
+	error_handle(return_value, rules);
 	philosopher_launcher(philosophers, rules);
 	free_everything(philosophers, rules);
 	return (0);

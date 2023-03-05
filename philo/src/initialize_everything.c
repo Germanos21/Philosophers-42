@@ -6,17 +6,20 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/06 01:59:54 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 02:52:15 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	error_handle(enum e_error ret)
+void	error_handle(enum e_error ret, t_rules *rules)
 {
 	if (ret == ERR_ARG || ret == ERR_MALLOC || ret == ERR_MUTEX
 		|| ret == ERR_NUM_ARG)
-		exit(1);
+		{
+			free(rules);
+			exit(1);
+		}
 }
 
 int	initialize_mutex(t_rules *rules)
@@ -85,13 +88,14 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 	rules->time_to_die = philosopher_atoi(argv[2]);
 	rules->time_to_eat = philosopher_atoi(argv[3]);
 	rules->time_to_sleep = philosopher_atoi(argv[4]);
-	if (rules->philo_num < 1 || rules->time_to_die < 1 || \
-	rules->time_to_eat < 1 || rules->time_to_sleep < 1 || rules->num_to_eat <= 0)
-		return (ERR_NUM_ARG);
 	if (argv[5])
 		rules->num_to_eat = philosopher_atoi(argv[5]);
 	else
 		rules->num_to_eat = -1;
+	if (rules->philo_num < 1 || rules->time_to_die < 1 || \
+	rules->time_to_eat < 1 || rules->time_to_sleep < 1 || \
+	rules->num_to_eat <= 0)
+		return (ERR_NUM_ARG);
 	if (initialize_mutex(rules) == ERR_MUTEX)
 		return (ERR_MUTEX);
 	if (initialize_philosopher(rules, philo) == ERR_MALLOC)
