@@ -6,13 +6,13 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/06 02:55:20 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 03:35:18 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	check_params_two(char **argv)
+void	check_params_two(char **argv, t_rules *rules)
 {
 	long long int	i;
 
@@ -20,12 +20,22 @@ void	check_params_two(char **argv)
 	while (argv[i])
 	{
 		if (philosopher_atoi(argv[i]) > INT_MAX || \
-		philosopher_atoi(argv[i]) < INT_MIN || philosopher_atoi(argv[i]) == '0')
+		philosopher_atoi(argv[i]) < INT_MIN)
 		{
 			printf("Error\n");
 			exit (1);
 		}
 		i++;
+	}
+	if (argv[5])
+	{
+
+		if (philosopher_atoi(argv[5]) <= 0)
+		{
+			free(rules);
+			printf("Error\n");
+			exit (1);
+		}
 	}
 }
 
@@ -54,8 +64,8 @@ int	main(int argc, char **argv)
 	int				return_value;
 
 	check_params(argv);
-	check_params_two(argv);
 	rules = malloc(sizeof(t_rules) + 1);
+	check_params_two(argv, rules);
 	philosophers = NULL;
 	return_value = init_all(&philosophers, rules, argv, argc);
 	error_handle(return_value, rules);

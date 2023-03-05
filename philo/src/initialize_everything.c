@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/06 02:54:18 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/06 03:31:12 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 	else
 		rules->num_to_eat = -1;
 	if (rules->philo_num < 1 || rules->time_to_die < 1 || \
-	rules->time_to_eat < 1 || rules->time_to_sleep < 1 || \
-	rules->num_to_eat <= 0)
+	rules->time_to_eat < 1 || rules->time_to_sleep < 1)
 		return (ERR_NUM_ARG);
 	if (initialize_mutex(rules) == ERR_MUTEX)
 		return (ERR_MUTEX);
