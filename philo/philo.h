@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:38 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/04 00:59:05 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/05 02:50:49 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ typedef struct s_rules
 	long long int		time_to_sleep;
 	long long int		num_to_eat;
 	long long int		start_time;
+	int					all_ate;
+	pthread_t			check_eat;
 	pthread_t			check_death_thread;
 	t_philos			*philosophers;
 	t_forks				*forks;
 	pthread_mutex_t		printing;
 	pthread_mutex_t		death_mutex;
 	pthread_mutex_t		last_meal_mutex;
+	pthread_mutex_t		check_eat_mutex;
 	pthread_mutex_t		eat_count_mutex;
 }				t_rules;
 
@@ -70,9 +73,9 @@ void			error_handle(enum e_error ret);
 int				initialize_mutex(t_rules *rules);
 long long int	gettime(void);
 void			print_message(t_philos *philo, t_rules *rules, char *message);
-int				philosopher_eats(t_philos *philo, t_rules *rules);
-int				philosopher_sleeps(t_philos *philo, t_rules *rules);
-int				philosopher_thinks(t_philos *philo, t_rules *rules);
+int				philo_eats(t_philos *philo, t_rules *rules);
+int				philo_sleep(t_philos *philo, t_rules *rules);
+int				philo_think(t_philos *philo, t_rules *rules);
 void			*philosopher_death(void *rule);
 int				ft_usleep(int time, t_philos *philo);
 int				philosopher_launcher(t_philos *philo, t_rules *rules);
@@ -82,5 +85,6 @@ void			check_params(char **argv);
 void			print_eating(t_philos *philo, t_rules *rules);
 void			free_everything(t_philos *philo, t_rules *rules);
 long long int	check_last_meal(t_rules *rules, t_philos *philo, int i);
+void			*philo_full(void *rule);
 
 #endif

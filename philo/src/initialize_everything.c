@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/04 00:56:47 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/05 04:56:08 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	initialize_mutex(t_rules *rules)
 	while (i < rules->philo_num)
 	{
 		((rules->forks)[i]).mutex = malloc(sizeof(pthread_mutex_t));
-		rules->forks[i].fingerprint = -1;
+		rules->forks[i].fingerprint = -99;
 		if (pthread_mutex_init(((rules->forks)[i]).mutex, NULL) != 0)
 			return (ERR_MUTEX);
 		i++;
@@ -40,6 +40,8 @@ int	initialize_mutex(t_rules *rules)
 	if (pthread_mutex_init(&rules->last_meal_mutex, NULL) != 0)
 		return (ERR_MUTEX);
 	if (pthread_mutex_init(&rules->eat_count_mutex, NULL) != 0)
+		return (ERR_MUTEX);
+	if (pthread_mutex_init(&rules->check_eat_mutex, NULL) != 0)
 		return (ERR_MUTEX);
 	return (0);
 }
@@ -57,13 +59,13 @@ int	initialize_philosopher(t_rules *rules, t_philos **philo)
 		(*philo)[i].id = i;
 		if (i % 2 == 0)
 		{
-		(*philo)[i].right_fork = &rules->forks[(i + 1) % rules->philo_num];
-		(*philo)[i].left_fork = &rules->forks[i];
+			(*philo)[i].right_fork = &rules->forks[(i + 1) % rules->philo_num];
+			(*philo)[i].left_fork = &rules->forks[i];
 		}
 		else
 		{
-		(*philo)[i].left_fork = &rules->forks[(i + 1) % rules->philo_num];
-		(*philo)[i].right_fork = &rules->forks[i];
+			(*philo)[i].left_fork = &rules->forks[(i + 1) % rules->philo_num];
+			(*philo)[i].right_fork = &rules->forks[i];
 		}
 		(*philo)[i].eat_count = 0;
 		(*philo)[i].last_meal = gettime();
@@ -83,10 +85,8 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 	rules->time_to_die = philosopher_atoi(argv[2]);
 	rules->time_to_eat = philosopher_atoi(argv[3]);
 	rules->time_to_sleep = philosopher_atoi(argv[4]);
-	rules->death = 0;
-	if (rules->philo_num < 1 || rules->philo_num > 200 \
-	|| rules->time_to_die < 1 || rules->time_to_eat < 1 \
-	|| rules->time_to_sleep < 1)
+	if (rules->philo_num < 1 || rules->time_to_die < 1 || \
+	rules->time_to_eat < 1 || rules->time_to_sleep < 1)
 		return (ERR_NUM_ARG);
 	if (argv[5])
 		rules->num_to_eat = philosopher_atoi(argv[5]);
@@ -96,6 +96,8 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 		return (ERR_MUTEX);
 	if (initialize_philosopher(rules, philo) == ERR_MALLOC)
 		return (ERR_MALLOC);
+	rules->death = 0;
+	rules->all_ate = 0;
 	rules->philosophers = *philo;
 	rules->start_time = gettime();
 	return (0);

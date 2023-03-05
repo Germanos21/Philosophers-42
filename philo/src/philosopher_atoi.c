@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:57:00 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/04 01:00:41 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/05 01:20:42 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ long long int	philosopher_atoi(char *str)
 
 int	is_full(t_rules *rules)
 {
-	pthread_mutex_lock(&rules->eat_count_mutex);
-	if (rules->philosophers->eat_count == rules->num_to_eat)
-	{
-		pthread_mutex_unlock(&rules->eat_count_mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(&rules->eat_count_mutex);
-	return (0);
+	int	value;
+
+	pthread_mutex_lock(&rules->check_eat_mutex);
+	value = rules->all_ate;
+	pthread_mutex_unlock(&rules->check_eat_mutex);
+	return (value);
 }
