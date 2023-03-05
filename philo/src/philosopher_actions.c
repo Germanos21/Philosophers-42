@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:05:22 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/05 05:14:42 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/05 06:08:13 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	philo_eats(t_philos *philo, t_rules *rules)
 
 int	philo_sleep(t_philos *philo, t_rules *rules)
 {
-	if (check_death(rules))
+	if (check_death(rules) || is_full(rules))
 		return (1);
 	print_message(philo, rules, "is sleeping");
 	return (ft_usleep(rules->time_to_sleep, philo));
@@ -69,8 +69,6 @@ void	*philosopher_death(void *rule)
 		i = -1;
 		while (++i < rules->philo_num)
 		{
-			if (is_full(rules) == 1)
-				break ;
 			if (gettime() - check_last_meal(rule, rules->philosophers, i) > \
 			rules->time_to_die)
 			{
@@ -78,9 +76,7 @@ void	*philosopher_death(void *rule)
 				if (check_death(rules) == 0)
 					printf("%lld %d died\n", \
 					gettime() - rules->start_time, i + 1);
-				pthread_mutex_lock(&rules->death_mutex);
 				rules->death = 1;
-				pthread_mutex_unlock(&rules->death_mutex);
 				pthread_mutex_unlock(&rules->printing);
 				break ;
 			}
