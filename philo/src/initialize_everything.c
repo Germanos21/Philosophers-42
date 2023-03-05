@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:59:32 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/05 04:56:08 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/05 06:13:37 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,6 @@ int	init_all(t_philos **philo, t_rules *rules, char **argv, int argc)
 	rules->time_to_die = philosopher_atoi(argv[2]);
 	rules->time_to_eat = philosopher_atoi(argv[3]);
 	rules->time_to_sleep = philosopher_atoi(argv[4]);
-	if (rules->philo_num < 1 || rules->time_to_die < 1 || \
-	rules->time_to_eat < 1 || rules->time_to_sleep < 1)
-		return (ERR_NUM_ARG);
 	if (argv[5])
 		rules->num_to_eat = philosopher_atoi(argv[5]);
 	else

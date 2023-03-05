@@ -6,7 +6,7 @@
 /*   By: gchernys <gchernys@42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:51:33 by gchernys          #+#    #+#             */
-/*   Updated: 2023/03/02 19:44:00 by gchernys         ###   ########.fr       */
+/*   Updated: 2023/03/05 06:13:15 by gchernys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_params_two(char **argv)
 	while (argv[i])
 	{
 		if (philosopher_atoi(argv[i]) > INT_MAX || \
-		philosopher_atoi(argv[i]) < INT_MIN)
+		philosopher_atoi(argv[i]) < INT_MIN || philosopher_atoi(argv[i]) <= 0)
 		{
 			printf("Error\n");
 			exit (1);
